@@ -1,16 +1,11 @@
 \documentclass[xcolor=pdftex,table,10pt]{beamer}
 
-%\usetheme{default}
 \usetheme{Boadilla}
 
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{verbatim}
 \usepackage{listings}
-%\usepackage{fancybox}
-%\usepackage{fontspec}
-
-%\setmainfont{Calibri}
 
 \useoutertheme{infolines}
 \useinnertheme{rectangles}
@@ -28,15 +23,6 @@
 \begin{frame}
 	\titlepage
 \end{frame}
-
-%\section*{Table of Contents}
-%
-%\begin{frame}
-%	\frametitle{Table of Contents}
-%		\tableofcontents
-%\end{frame}
-
-%\section{About Me}
 
 \begin{frame}
 	\frametitle{}
@@ -80,7 +66,6 @@
 \begin{frame}
 	\frametitle{}
 	\begin{center}
-		%\includegraphics[height=4cm]{email.jpg} \\
 		za@indocisc.co.id \\
 		0xFD57BE80 \\
 		available at pgp.mit.edu \\
@@ -102,17 +87,16 @@
 \end{frame}
 
 \begin{frame}
-%	\frametitle{Exploits of a Mom, XKCD \#327}	
 	\begin{center}
+		\LARGE{Exploits of a Mom, XKCD \#327}\vskip.3cm
 		\href{http://xkcd.com/327/}{\includegraphics[width=10cm]{exploits_of_a_mom.png}}\\
-		Exploits of a Mom, XKCD \#327
 	\end{center}
 \end{frame}
 
 \begin{frame}
 	\begin{center}
 		\large{SQL Injection is (mostly) about \\ \color{red}{the unauthorized DBMS data access}}\\
-		\small{Miroslav Stampar, sqlmap Developer}
+		\small{\textit{Miroslav Stampar, sqlmap Developer}}
 	\end{center}
 \end{frame}
 
@@ -165,7 +149,7 @@
 
 \begin{frame}
 	\begin{center}
-	\LARGE{Project Statistic} \vskip.2cm
+	\LARGE{Project Statistic} \vskip.3cm
 	\includegraphics[width=10cm]{ohloh.png} \\
 	\small{\href{http://www.ohloh.net/p/sqlmap}{http://www.ohloh.net/p/sqlmap}}
 	\end{center}
@@ -173,7 +157,7 @@
 
 \begin{frame}
 	\begin{center} 
-	\underline{Get and Update sqlmap}\vskip.3cm
+	Get and Update sqlmap \vskip.3cm
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
@@ -191,11 +175,7 @@
 
 \begin{frame}[fragile]
 	\begin{center}
-	Find Entry Point \\
-	%\begin{columns}	
-	%\column{.1\textwidth}
-	%\column{.9\textwidth}
-	%\small{	
+	Find the entry point \vskip.3cm
 	\small \begin{verbatim}
 			$ python sqlmap.py -u 
 			http://localhost/dvwa/vulnerabilities/sqli/?id=&Submit=Submit 
@@ -206,14 +186,13 @@
 	sqlmap got a 302 redirect to 'http://localhost:80/dvwa/login.php'. 
 	Do you want to follow? [Y/n]
 	\end{verbatim}
-	%\end{columns}
 	
 	\end{center}
 \end{frame}
 
 \begin{frame}[fragile]
 	\begin{center}
-		So, We Need a Cookie	
+		So, we need a cookie \vskip.3cm	
 	\end{center}
 	\small 
 	\begin{verbatim}
@@ -227,58 +206,21 @@
 
 \begin{frame}
 	\begin{center}
-	sqlmap Result \vskip.5cm
+	sqlmap found SQL injection points\vskip.5cm
 	\includegraphics[width=10cm]{sqlmap-result.png}
 	\end{center}
-	%\small
-	%\begin{verbatim}
-	%\end{verbatim} 
 \end{frame}
 
 \begin{frame}
 	\begin{center}
-	sqlmap Result \vskip.5cm
+	sqlmap fingerprinting result \vskip.5cm
 	\includegraphics[width=10cm]{sqlmap-fingerprint.png}
 	\end{center}
-	%\small
-	%\begin{verbatim}
-	%\end{verbatim} 
 \end{frame}
 
-%\begin{frame}[fragile]
-%	\begin{center}
-%		\LARGE Enumeration\vskip.3cm	
-%	\end{center}
-%	\begin{columns}	
-%	\column{.3\textwidth}
-%	\begin{flushright}
-%	\begin{semiverbatim}
-%	-a, --all 
-%	--current-user
-%	--current-db
-%	--passwords
-%	--tables
-%	--dump
-%	...
-%	\end{semiverbatim}
-%	\end{flushright} 
-%	\column{.7\textwidth}
-%	\begin{flushleft}	
-%	Retrieve everything\\
-%	Retrieve DBMS current user\\
-%	Retrieve DBMS current database\\
-%	Enumerate DBMS users password hashes\\
-%	Enumerate DBMS database tables\\
-%	Dump DBMS database table entries\\
-%	... and many more
-%	\end{flushleft}
-%	\end{columns}
-%
-%\end{frame}
-
-\begin{frame}[fragile]
+\begin{frame}
 	\begin{center}
-	\LARGE Enumeration
+	 Retrieve DBMS current user	\vskip.3cm
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
@@ -290,63 +232,74 @@
 
 \begin{frame}[fragile]
 	\begin{center}
-	\LARGE Enumeration
+		Enumerate DBMS database tables \vskip.3cm	
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
 	\column{.9\textwidth}
-	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--tables}}\vskip.3cm
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--tables}}\\
 	\textrm{[14:45:32] [INFO] fetching tables for databases: 'dvwa, mysql'}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
 	\begin{center}
-	Enumeration \vskip.5cm
+	Enumerate DBMS database table \vskip.5cm
 	\includegraphics[width=5cm]{sqlmap-tables.png}
 	\end{center}
-	%\small
-	%\begin{verbatim}
-	%\end{verbatim} 
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 	\begin{center}
-	\LARGE Enumeration
+	Dump DBMS database table entries \vskip.3cm
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
 	\column{.9\textwidth}
-	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--dump} DVWA}\vskip.3cm
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--dump DVWA}}
 	\end{columns}
 \end{frame}
 
 \begin{frame}
 	\begin{center}
-	Enumeration \vskip.5cm
+		Dump DBMS database table entries \vskip.5cm
 	\includegraphics[width=10cm]{sqlmap-dvwa.png}
 	\end{center}
-	%\small
-	%\begin{verbatim}
-	%\end{verbatim} 
 \end{frame}
 
 \begin{frame}
 	\begin{center}
-		\LARGE \href{https://github.com/sqlmapproject/sqlmap/commit/b483710927fdc878e276fea26fccff0b986ebd40}{Contribution}\vskip.5cm
+		Contribution\vskip.5cm
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
 	\column{.9\textwidth}
 	\underline{Feature request}\vskip.3cm
-	1. Configure output directory \\
-	2. Retrieve database server IP address \\
+	\begin{itemize}
+	\item Configure output directory \\
+	\item Retrieve database server IP address \vskip.6cm
+	\end{itemize}
+	\underline{Bug}\vskip.3cm
+	\begin{itemize}
+	\item \href{https://github.com/sqlmapproject/sqlmap/issues/409}{[CRITICAL] unhandled exception} 
+	\end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{center}
+	Configure output directory\vskip.3cm
+	\end{center}
+	\begin{columns}	
+	\column{.1\textwidth}
+	\column{.9\textwidth}
+	\textrm{\$ python sqlmap.py -u ... --cookie ... \color{red}{--output-dir /tmp/sqlmap}}\vskip.3cm
 	\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
 	\begin{center}
-	\LARGE Enumeration
+	Retrieve database server IP address 
 	\end{center}
 	\begin{columns}	
 	\column{.1\textwidth}
@@ -370,7 +323,7 @@
 
 \begin{frame}
 	\begin{center}
-		\LARGE{Reference} \\
+		Reference \\
 	\end{center}
 	\begin{itemize}
 		\item \href{http://www.slideshare.net/stamparm/euro-python-2011miroslavstamparsqlmapsecuritydevelopmentinpython}{sqlmap - security development in python, Miroslav Stampar, EuroPython 2011}
